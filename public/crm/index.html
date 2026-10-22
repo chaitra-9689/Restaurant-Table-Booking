@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Restaurant CRM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/crm/crm.css">
+  <link rel="icon" href="/img/logo.svg" id="favicon">
+</head>
+<body>
+  <!-- Auth -->
+  <div class="auth-screen hidden" id="auth-screen">
+    <div class="auth-card">
+      <img class="auth-logo" src="/img/logo.svg" alt="">
+      <h1 id="auth-title">Staff sign in</h1>
+      <p class="muted" id="auth-sub">Sign in to manage bookings, guests and the website.</p>
+      <form id="auth-form" novalidate>
+        <label class="signup-only hidden">Full name
+          <input name="full_name" autocomplete="name" data-testid="auth-name">
+        </label>
+        <label>Email
+          <input type="email" name="email" autocomplete="email" required data-testid="auth-email">
+        </label>
+        <label>Password
+          <input type="password" name="password" autocomplete="current-password" required minlength="6" data-testid="auth-password">
+        </label>
+        <button class="btn btn-block" type="submit" id="auth-submit" data-testid="auth-submit">Sign in</button>
+        <p class="alert hidden" id="auth-msg" role="alert" data-testid="auth-message"></p>
+      </form>
+      <p class="small muted center" id="auth-switch">
+        New staff member? <a href="#" id="toggle-auth">Create an account</a>
+      </p>
+      <p class="small muted center"><a href="/">← Back to website</a></p>
+    </div>
+  </div>
+
+  <!-- Not authorised -->
+  <div class="auth-screen hidden" id="denied-screen">
+    <div class="auth-card center">
+      <div class="auth-logo">🔒</div>
+      <h1>No CRM access yet</h1>
+      <p class="muted">You're signed in as <strong id="denied-email"></strong>, but this account isn't a staff member. Ask an admin to invite your email address, then sign up again with it.</p>
+      <button class="btn btn-ghost" id="denied-signout">Sign out</button>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div class="app hidden" id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-brand"><img id="side-logo" class="side-logo" src="/img/logo.svg" alt=""> <span id="side-name">CRM</span></div>
+      <nav class="side-nav">
+        <a href="#/dashboard" data-route="dashboard"><span class="ico">◧</span>Dashboard</a>
+        <a href="#/bookings" data-route="bookings"><span class="ico">▤</span>Bookings <span class="pill hidden" id="pending-pill"></span></a>
+        <a href="#/customers" data-route="customers"><span class="ico">☺</span>Customers</a>
+        <a href="#/tables" data-route="tables"><span class="ico">▦</span>Tables</a>
+        <div class="side-heading">Website</div>
+        <a href="#/menu" data-route="menu"><span class="ico">≡</span>Menu</a>
+        <a href="#/website" data-route="website"><span class="ico">⚙</span>Site &amp; booking settings</a>
+        <a href="/" target="_blank" rel="noopener"><span class="ico">↗</span>View website</a>
+        <div class="side-heading admin-only">Admin</div>
+        <a href="#/staff" data-route="staff" class="admin-only"><span class="ico">👥</span>Staff</a>
+      </nav>
+      <div class="side-user">
+        <div>
+          <div class="side-user-name" id="me-name"></div>
+          <div class="side-user-role" id="me-role"></div>
+        </div>
+        <button class="icon-btn" id="signout" title="Sign out" data-testid="signout">⎋</button>
+      </div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="icon-btn menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+        <h1 id="page-title"></h1>
+        <div class="topbar-actions" id="page-actions"></div>
+      </header>
+      <main class="content" id="view"></main>
+    </div>
+  </div>
+
+  <dialog id="modal">
+    <form method="dialog" id="modal-form" novalidate>
+      <header class="modal-head">
+        <h2 id="modal-title"></h2>
+        <button class="icon-btn" value="cancel" formnovalidate aria-label="Close">✕</button>
+      </header>
+      <div class="modal-body" id="modal-body"></div>
+      <p class="alert hidden" id="modal-error" role="alert"></p>
+      <footer class="modal-foot" id="modal-foot"></footer>
+    </form>
+  </dialog>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="/config.js"></script>
+  <script src="/vendor/supabase.js"></script>
+  <script type="module" src="/crm/crm.js"></script>
+</body>
+</html>

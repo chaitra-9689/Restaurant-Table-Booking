@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Restaurant logo">
+  <circle cx="32" cy="32" r="31" fill="#b5502f"/>
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#fbf7f2" stroke-width="2.5" opacity=".9"/>
+  <circle cx="32" cy="32" r="15" fill="none" stroke="#fbf7f2" stroke-width="1.2" opacity=".55"/>
+  <!-- fork -->
+  <g stroke="#fbf7f2" stroke-width="2.4" stroke-linecap="round" fill="none">
+    <path d="M24 18v9a4 4 0 0 0 8 0v-9"/>
+    <path d="M28 18v8"/>
+    <path d="M28 31v15"/>
+    <!-- knife -->
+    <path d="M39 46V18c3.5 2.5 5 7 5 12h-5"/>
+  </g>
+</svg>

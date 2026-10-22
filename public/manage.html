@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage Booking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="icon" href="/img/logo.svg" id="favicon">
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" class="brand">
+        <img class="brand-logo" src="/img/logo.svg" data-bind-src="logo_url" alt="">
+        <span data-bind="restaurant_name">&nbsp;</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/#menu">Menu</a>
+        <a href="/#book" class="btn btn-sm">Book a table</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="container narrow">
+      <p class="eyebrow">Your reservation</p>
+      <h2>Manage your booking</h2>
+      <p class="muted">Enter the booking reference from your confirmation and the email you booked with.</p>
+
+      <div class="card">
+        <form id="lookup-form" novalidate>
+          <div class="row">
+            <label>Booking reference
+              <input name="reference" placeholder="TB-XXXXXX" required autocomplete="off" data-testid="manage-reference">
+            </label>
+            <label>Email
+              <input type="email" name="email" required autocomplete="email" data-testid="manage-email">
+            </label>
+          </div>
+          <button class="btn" type="submit" data-testid="manage-find">Find booking</button>
+          <p class="form-error hidden" id="lookup-error" role="alert" data-testid="manage-error"></p>
+        </form>
+      </div>
+
+      <div class="card result-card hidden" id="result" style="margin-top:20px" data-testid="manage-result"></div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="/">← Back to website</a>
+      <a href="/crm" class="muted">Staff login</a>
+    </div>
+  </footer>
+
+  <script src="/config.js"></script>
+  <script src="/vendor/supabase.js"></script>
+  <script type="module">
+    import { getClient, esc, fmtDate, fmtTime, errMsg } from '/js/common.js';
+    const sb = getClient({ guest: true });
+    const $ = (s) => document.querySelector(s);
+    let current = null;
+
+    sb.from('site_settings').select('restaurant_name, logo_url').eq('id', 1).single().then(({ data }) => {
+      if (!data) return;
+      document.querySelectorAll('[data-bind=restaurant_name]').forEach((el) => (el.textContent = data.restaurant_name));
+      const logo = data.logo_url || '/img/logo.svg';
+      document.querySelectorAll('[data-bind-src="logo_url"]').forEach((img) => {
+        img.src = logo;
+        img.alt = `${data.restaurant_name} logo`;
+      });
+      document.querySelector('#favicon').href = logo;
+      document.title = `Manage Booking – ${data.restaurant_name}`;
+    });
+
+    const showError = (msg) => {
+      $('#lookup-error').textContent = msg || '';
+      $('#lookup-error').classList.toggle('hidden', !msg);
+    };
+
+    function render(b) {
+      const canCancel = ['pending', 'confirmed'].includes(b.status);
+      $('#result').innerHTML = `
+        <h3>${esc(b.full_name)}</h3>
+        <dl>
+          <dt>Reference</dt><dd>${esc(b.reference)}</dd>
+          <dt>Status</dt><dd><span class="status ${esc(b.status)}" data-testid="manage-status">${esc(b.status.replace('_', ' '))}</span></dd>
+          <dt>Date</dt><dd>${esc(fmtDate(b.date, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }))}</dd>
+          <dt>Time</dt><dd>${esc(fmtTime(b.time))}</dd>
+          <dt>Guests</dt><dd>${b.party_size}</dd>
+          ${b.special_requests ? `<dt>Requests</dt><dd>${esc(b.special_requests)}</dd>` : ''}
+        </dl>
+        ${canCancel ? '<button class="btn btn-ghost" id="cancel-btn" data-testid="manage-cancel">Cancel booking</button>' : ''}`;
+      $('#result').classList.remove('hidden');
+    }
+
+    $('#lookup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      current = { reference: String(fd.get('reference')).trim(), email: String(fd.get('email')).trim() };
+      if (!current.reference || !current.email) return showError('Please enter your reference and email.');
+      showError('');
+      const { data, error } = await sb.rpc('lookup_booking', { p_reference: current.reference, p_email: current.email });
+      if (error) return showError(errMsg(error));
+      if (!data) {
+        $('#result').classList.add('hidden');
+        return showError('We couldn’t find a booking with those details.');
+      }
+      render(data);
+    });
+
+    $('#result').addEventListener('click', async (e) => {
+      if (e.target.id !== 'cancel-btn') return;
+      if (!confirm('Cancel this booking?')) return;
+      e.target.disabled = true;
+      const { data, error } = await sb.rpc('cancel_booking', { p_reference: current.reference, p_email: current.email });
+      if (error) {
+        e.target.disabled = false;
+        return showError(errMsg(error));
+      }
+      render(data);
+    });
+
+    const params = new URLSearchParams(location.search);
+    if (params.get('ref')) document.querySelector('[name=reference]').value = params.get('ref');
+  </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a Table</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="icon" href="/img/logo.svg" id="favicon">
+</head>
+<body>
+  <header class="nav" id="top">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" data-testid="site-logo">
+        <img class="brand-logo" src="/img/logo.svg" data-bind-src="logo_url" alt="">
+        <span data-bind="restaurant_name">&nbsp;</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#visit">Visit</a>
+        <a href="/manage">Manage booking</a>
+        <a href="#book" class="btn btn-sm">Book a table</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <p class="eyebrow" data-bind="tagline"></p>
+      <h1 data-bind="hero_title"></h1>
+      <p class="lead" data-bind="hero_subtitle"></p>
+      <a href="#book" class="btn btn-lg" data-testid="hero-book">Reserve your table</a>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container narrow center">
+      <p class="eyebrow">Welcome</p>
+      <h2 data-bind="about_title"></h2>
+      <p class="about-text" data-bind="about_text"></p>
+    </div>
+  </section>
+
+  <section class="section alt" id="menu">
+    <div class="container">
+      <div class="center">
+        <p class="eyebrow">From our kitchen</p>
+        <h2>Menu</h2>
+      </div>
+      <div class="menu-tabs" id="menu-tabs" role="tablist"></div>
+      <div class="menu-grid" id="menu-grid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="book">
+    <div class="container booking-wrap">
+      <div class="booking-intro">
+        <p class="eyebrow">Reservations</p>
+        <h2>Book a table</h2>
+        <p>Choose a date and party size to see available times. You'll get a booking reference straight away.</p>
+        <p class="muted small">Larger group or special event? Call us on <a data-bind-href="tel" data-bind="phone"></a>.</p>
+      </div>
+
+      <div class="card booking-card" id="booking-card">
+        <form id="booking-form" novalidate>
+          <div class="step" id="step-1">
+            <div class="row">
+              <label>Date
+                <input type="date" id="b-date" name="date" required data-testid="booking-date">
+              </label>
+              <label>Guests
+                <select id="b-party" name="party" required data-testid="booking-party"></select>
+              </label>
+            </div>
+            <div class="slots-label">Available times</div>
+            <div class="slots" id="slots" data-testid="booking-slots">
+              <p class="muted small">Pick a date to see available times.</p>
+            </div>
+          </div>
+
+          <div class="step hidden" id="step-2">
+            <p class="chosen" id="chosen-summary"></p>
+            <div class="row">
+              <label>Full name
+                <input type="text" name="full_name" autocomplete="name" required data-testid="booking-name">
+              </label>
+              <label>Phone
+                <input type="tel" name="phone" autocomplete="tel" required data-testid="booking-phone">
+              </label>
+            </div>
+            <label>Email
+              <input type="email" name="email" autocomplete="email" required data-testid="booking-email">
+            </label>
+            <label>Special requests <span class="muted">(optional)</span>
+              <textarea name="special_requests" rows="3" placeholder="Allergies, celebrations, high chair…" data-testid="booking-requests"></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="button" class="btn btn-ghost" id="back-btn">Back</button>
+              <button type="submit" class="btn" id="submit-btn" data-testid="booking-submit">Confirm booking</button>
+            </div>
+          </div>
+          <p class="form-error hidden" id="form-error" role="alert" data-testid="booking-error"></p>
+        </form>
+
+        <div class="confirmation hidden" id="confirmation" data-testid="booking-confirmation">
+          <div class="check">✓</div>
+          <h3 id="conf-title">You're booked!</h3>
+          <p id="conf-detail"></p>
+          <p class="ref">Booking reference <strong id="conf-ref" data-testid="booking-reference"></strong></p>
+          <p class="muted small">Keep this reference. You can view or cancel your booking on the <a href="/manage">Manage booking</a> page.</p>
+          <button class="btn btn-ghost" id="new-booking-btn">Make another booking</button>
+        </div>
+
+        <div class="closed-notice hidden" id="booking-disabled">
+          <h3>Online booking is paused</h3>
+          <p>Please call us on <a data-bind-href="tel" data-bind="phone"></a> to reserve.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="visit">
+    <div class="container visit-grid">
+      <div>
+        <p class="eyebrow">Opening hours</p>
+        <h2>When we're open</h2>
+        <table class="hours" id="hours"></table>
+      </div>
+      <div>
+        <p class="eyebrow">Find us</p>
+        <h2>Visit</h2>
+        <p data-bind="address"></p>
+        <p><a data-bind-href="tel" data-bind="phone"></a></p>
+        <p><a data-bind-href="mailto" data-bind="email"></a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-brand">
+        <img class="footer-logo" src="/img/logo.svg" data-bind-src="logo_url" alt="">
+        © <span id="year"></span> <span data-bind="restaurant_name"></span>
+      </span>
+      <a href="/crm" class="muted">Staff login</a>
+    </div>
+  </footer>
+
+  <script src="/config.js"></script>
+  <script src="/vendor/supabase.js"></script>
+  <script type="module" src="/js/site.js"></script>
+</body>
+</html>
