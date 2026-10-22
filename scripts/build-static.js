@@ -25,9 +25,9 @@ fs.writeFileSync(path.join(dist, 'config.js'), `window.APP_CONFIG = ${JSON.strin
 // Root vercel.json is the single source of routing config (Git deploys read it from the repo root);
 // copy it so `cd dist && vercel --prod` behaves the same. Build settings only apply at the root.
 const vercelConfig = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
-const cdn = vercelConfig.rewrites.find((r) => r.source === '/vendor/supabase.js');
-if (!cdn.destination.includes(`@supabase/supabase-js@${supabaseVersion}/`)) {
-  console.error(`vercel.json pins a different supabase-js than the installed ${supabaseVersion}; update the /vendor/supabase.js rewrite`);
+const cdn = vercelConfig.routes.find((r) => r.src && r.src.startsWith('/vendor/supabase'));
+if (!cdn || !cdn.dest.includes(`@supabase/supabase-js@${supabaseVersion}/`)) {
+  console.error(`vercel.json pins a different supabase-js than the installed ${supabaseVersion}; update the /vendor/supabase.js route`);
   process.exit(1);
 }
 for (const key of ['$schema', 'framework', 'installCommand', 'buildCommand', 'outputDirectory']) delete vercelConfig[key];
