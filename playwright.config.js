@@ -14,7 +14,7 @@ module.exports = defineConfig({
   globalSetup: './tests/support/global-setup.js',
   globalTeardown: './tests/support/global-teardown.js',
   use: {
-    baseURL: process.env.E2E_BASE_URL || 'https://restaurant-table-booking-omega.vercel.app',
+    baseURL: process.env.E2E_BASE_URL || 'https://restaurant-table-booking-coral.vercel.app',
     browserName: 'chromium',
     headless: true,
     launchOptions: { slowMo: 120 }, // makes the recording easy to follow

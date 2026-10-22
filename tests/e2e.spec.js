@@ -57,6 +57,8 @@ function closedDay() {
 
 async function pickDateAndParty(date, party) {
   await page.locator('#book').scrollIntoViewIfNeeded();
+  // wait for the form to be initialised from site settings, otherwise it resets the date to today
+  await expect(page.locator('#b-party option')).toHaveCount(settings.max_party_size);
   await page.getByTestId('booking-date').fill(date);
   await page.getByTestId('booking-party').selectOption(String(party));
   await expect(page.locator('#slots .slot').first()).toBeVisible();

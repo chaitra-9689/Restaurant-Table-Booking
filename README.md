@@ -15,11 +15,14 @@ npm start            # http://localhost:3000  ·  CRM at /crm
 
 ## Deploy
 
-Live at **https://restaurant-table-booking-omega.vercel.app** (Vercel project `restaurant-table-booking`).
+Live at **https://restaurant-table-booking-coral.vercel.app** (website) and
+**https://restaurant-table-booking-coral.vercel.app/crm** (CRM) – Vercel project `restaurant-table-booking`
+in the `chaitra6` team, connected to this GitHub repo: **every push to `main` deploys automatically**.
 
-`npm run build` writes a static copy to `dist/` with a generated `config.js` (Supabase URL + anon key only)
-and a `vercel.json` (clean URLs, `/crm` rewrite, supabase-js from jsDelivr, security headers).
-Deploy the contents of `dist/` as a static site with no build step, e.g. `cd dist && npx vercel --prod`.
+The root `vercel.json` holds the build settings (`npm ci --omit=dev`, `npm run build`, output `dist/`) and the
+routes (clean URLs, `/crm`, supabase-js from jsDelivr, security headers, real 404s). The Vercel project needs
+the two public env vars `SUPABASE_URL` and `SUPABASE_ANON_KEY`; `npm run build` turns them into `config.js`.
+For a manual deploy you can also run `npm run build && cd dist && npx vercel --prod`.
 Supabase Auth's Site URL / redirect allow-list point at the live domain plus `http://localhost:3000`.
 
 ## Automated testing

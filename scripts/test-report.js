@@ -200,7 +200,7 @@ function writeMarkdown(data, meta, file) {
   const data = rows(results);
   const meta = {
     runDate: now.toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' }),
-    baseURL: results.config?.projects?.[0]?.use?.baseURL || process.env.E2E_BASE_URL || 'https://restaurant-table-booking-omega.vercel.app',
+    baseURL: results.config?.projects?.[0]?.use?.baseURL || process.env.E2E_BASE_URL || 'https://restaurant-table-booking-coral.vercel.app',
     duration: (results.stats?.duration || 0) / 1000,
     video,
   };

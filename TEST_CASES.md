@@ -1,11 +1,11 @@
 # Restaurant Table Booking – Test Cases & Results
 
-**Run date:** 22 Oct 2026, 13:49  
-**Target:** https://restaurant-table-booking-omega.vercel.app  
+**Run date:** 22 Oct 2026, 17:31  
+**Target:** https://restaurant-table-booking-coral.vercel.app  
 **Backend:** Supabase (credentials from `.env`)  
 **Tool:** Playwright 1.57 (Chromium, headless, 1280×800, one continuous session)  
-**Result:** 30/30 passed (100%) in 57.3 s  
-**Recording:** `testing_recording/E2E_Test_Run_20261022_0819.mp4` · **Screenshots:** `testing_ss/` · **Excel:** `Test_Report.xlsx`
+**Result:** 30/30 passed (100%) in 95.3 s  
+**Recording:** `testing_recording/E2E_Test_Run_20261022_1201.mp4` · **Screenshots:** `testing_ss/` · **Excel:** `Test_Report.xlsx`
 
 ## How the suite works
 
@@ -60,7 +60,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC01 – Home page loads with branding from Supabase
 
-**Module:** Website – Home · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.7 s
+**Module:** Website – Home · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.5 s
 
 **Preconditions:** Site is deployed; site_settings row exists in Supabase.
 
@@ -80,7 +80,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC02 – Header navigation scrolls to page sections
 
-**Module:** Website – Navigation · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 0.9 s
+**Module:** Website – Navigation · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 1.3 s
 
 **Preconditions:** Home page is open at desktop width.
 
@@ -101,7 +101,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC03 – Menu tabs filter dishes by category
 
-**Module:** Website – Menu · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 0.8 s
+**Module:** Website – Menu · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 1.1 s
 
 **Preconditions:** Menu items exist; at least one is featured.
 
@@ -121,7 +121,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC04 – Opening hours and contact details are shown
 
-**Module:** Website – Visit · **Priority:** Low · **Status:** ✅ PASS · **Duration:** 0.2 s
+**Module:** Website – Visit · **Priority:** Low · **Status:** ✅ PASS · **Duration:** 0.4 s
 
 **Preconditions:** Default opening hours (Monday closed).
 
@@ -140,7 +140,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC05 – Booking form defaults and closed-day message
 
-**Module:** Website – Booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 0.9 s
+**Module:** Website – Booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.0 s
 
 **Preconditions:** Online booking enabled; Monday is a closed day.
 
@@ -160,7 +160,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC06 – Available time slots load and a slot can be selected
 
-**Module:** Website – Booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 0.9 s
+**Module:** Website – Booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.4 s
 
 **Preconditions:** An open day at least 2 days ahead.
 
@@ -179,7 +179,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC07 – Guest details are validated before booking
 
-**Module:** Website – Booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 3.6 s
+**Module:** Website – Booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 3.7 s
 
 **Preconditions:** A slot has been selected (TC06).
 
@@ -198,7 +198,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC08 – Guest can book a table and receives a reference
 
-**Module:** Website – Booking · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 1.0 s
+**Module:** Website – Booking · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 14.2 s
 
 **Preconditions:** Slot selected; valid guest data.
 
@@ -218,7 +218,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC09 – Fully-booked times disappear (no double booking)
 
-**Module:** Website – Booking · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 3.0 s
+**Module:** Website – Booking · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 9.3 s
 
 **Preconditions:** Only one 10-seat table exists.
 
@@ -238,7 +238,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC10 – Guest can look up a booking with reference and email
 
-**Module:** Website – Manage booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.0 s
+**Module:** Website – Manage booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.7 s
 
 **Preconditions:** Booking from TC08 exists.
 
@@ -256,7 +256,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC11 – Lookup with the wrong email is rejected
 
-**Module:** Website – Manage booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 0.6 s
+**Module:** Website – Manage booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 0.8 s
 
 **Preconditions:** Booking from TC08 exists.
 
@@ -274,7 +274,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC12 – Guest can cancel a booking and the slot is released
 
-**Module:** Website – Manage booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 2.2 s
+**Module:** Website – Manage booking · **Priority:** High · **Status:** ✅ PASS · **Duration:** 3.3 s
 
 **Preconditions:** Big-party booking from TC09 exists.
 
@@ -294,7 +294,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC13 – Website works at mobile width
 
-**Module:** Website – Responsive · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 0.6 s
+**Module:** Website – Responsive · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 1.0 s
 
 **Preconditions:** None.
 
@@ -313,7 +313,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC14 – Anonymous visitors cannot read private data
 
-**Module:** Security · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 1.2 s
+**Module:** Security · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 1.5 s
 
 **Preconditions:** Bookings and customers exist (TC08).
 
@@ -331,7 +331,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC15 – CRM rejects invalid credentials
 
-**Module:** CRM – Auth · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.5 s
+**Module:** CRM – Auth · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.8 s
 
 **Preconditions:** Signed out.
 
@@ -349,7 +349,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC16 – Create-account form switches mode and validates password
 
-**Module:** CRM – Auth · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 1.3 s
+**Module:** CRM – Auth · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 2.0 s
 
 **Preconditions:** On the CRM sign-in screen.
 
@@ -369,7 +369,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC17 – Admin can sign in and sees the dashboard
 
-**Module:** CRM – Auth · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 1.4 s
+**Module:** CRM – Auth · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 2.0 s
 
 **Preconditions:** Test admin account (created by the suite) exists.
 
@@ -387,7 +387,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC18 – Staff can create a phone booking
 
-**Module:** CRM – Bookings · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 1.6 s
+**Module:** CRM – Bookings · **Priority:** Critical · **Status:** ✅ PASS · **Duration:** 1.8 s
 
 **Preconditions:** Signed in as admin.
 
@@ -407,7 +407,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC19 – Bookings list filters and search
 
-**Module:** CRM – Bookings · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.6 s
+**Module:** CRM – Bookings · **Priority:** High · **Status:** ✅ PASS · **Duration:** 2.5 s
 
 **Preconditions:** Website booking from TC08 exists.
 
@@ -427,7 +427,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC20 – Booking status can be changed inline
 
-**Module:** CRM – Bookings · **Priority:** High · **Status:** ✅ PASS · **Duration:** 0.4 s
+**Module:** CRM – Bookings · **Priority:** High · **Status:** ✅ PASS · **Duration:** 0.6 s
 
 **Preconditions:** Filtered list from TC19.
 
@@ -445,7 +445,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC21 – Booking can be edited (party size and internal note)
 
-**Module:** CRM – Bookings · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.4 s
+**Module:** CRM – Bookings · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.8 s
 
 **Preconditions:** Website booking visible in the list.
 
@@ -465,7 +465,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC22 – Customer profile: tags and VIP
 
-**Module:** CRM – Customers · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.8 s
+**Module:** CRM – Customers · **Priority:** High · **Status:** ✅ PASS · **Duration:** 2.5 s
 
 **Preconditions:** Customers created by the bookings above.
 
@@ -485,7 +485,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC23 – HTML in guest input is shown as text (XSS protection)
 
-**Module:** CRM – Security · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.5 s
+**Module:** CRM – Security · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.9 s
 
 **Preconditions:** Signed in as admin.
 
@@ -503,7 +503,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC24 – Tables can be added and deleted
 
-**Module:** CRM – Tables · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 2.1 s
+**Module:** CRM – Tables · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 2.9 s
 
 **Preconditions:** Signed in as admin.
 
@@ -523,7 +523,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC25 – Menu dish added in CRM appears on the website
 
-**Module:** CRM – Website content · **Priority:** High · **Status:** ✅ PASS · **Duration:** 3.4 s
+**Module:** CRM – Website content · **Priority:** High · **Status:** ✅ PASS · **Duration:** 5.3 s
 
 **Preconditions:** Signed in as admin.
 
@@ -543,7 +543,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC26 – Site settings update the website
 
-**Module:** CRM – Website content · **Priority:** High · **Status:** ✅ PASS · **Duration:** 2.9 s
+**Module:** CRM – Website content · **Priority:** High · **Status:** ✅ PASS · **Duration:** 4.2 s
 
 **Preconditions:** Signed in as admin.
 
@@ -563,7 +563,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC27 – Online booking can be paused
 
-**Module:** CRM – Booking rules · **Priority:** High · **Status:** ✅ PASS · **Duration:** 3.3 s
+**Module:** CRM – Booking rules · **Priority:** High · **Status:** ✅ PASS · **Duration:** 3.9 s
 
 **Preconditions:** Signed in as admin.
 
@@ -602,7 +602,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC29 – Admin can invite and revoke staff
 
-**Module:** CRM – Staff · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 1.9 s
+**Module:** CRM – Staff · **Priority:** Medium · **Status:** ✅ PASS · **Duration:** 2.4 s
 
 **Preconditions:** Signed in as admin.
 
@@ -621,7 +621,7 @@ Run it again with `npm run test:e2e` (set `E2E_BASE_URL=http://localhost:3000` t
 
 ### TC30 – Sign out returns to the login screen
 
-**Module:** CRM – Auth · **Priority:** High · **Status:** ✅ PASS · **Duration:** 0.8 s
+**Module:** CRM – Auth · **Priority:** High · **Status:** ✅ PASS · **Duration:** 1.4 s
 
 **Preconditions:** Signed in.
 
